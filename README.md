@@ -1,20 +1,20 @@
-# :package_description
+# Event Dispatcher
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/vendor_slug/package_slug.svg?style=flat-square)](https://packagist.org/packages/vendor_slug/package_slug)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/vendor_slug/package_slug/run-tests?label=tests)](https://github.com/vendor_slug/package_slug/actions?query=workflow%3ATests+branch%3Amaster)
-[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/vendor_slug/package_slug/Check%20&%20fix%20styling?label=code%20style)](https://github.com/vendor_slug/package_slug/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amaster)
-[![Total Downloads](https://img.shields.io/packagist/dt/vendor_slug/package_slug.svg?style=flat-square)](https://packagist.org/packages/vendor_slug/package_slug)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/zorachka/event_dispatcher.svg?style=flat-square)](https://packagist.org/packages/zorachka/event_dispatcher)
+[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/zorachka/event_dispatcher/run-tests?label=tests)](https://github.com/zorachka/event_dispatcher/actions?query=workflow%3ATests+branch%3Amaster)
+[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/zorachka/event_dispatcher/Check%20&%20fix%20styling?label=code%20style)](https://github.com/zorachka/event_dispatcher/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amaster)
+[![Total Downloads](https://img.shields.io/packagist/dt/zorachka/event_dispatcher.svg?style=flat-square)](https://packagist.org/packages/zorachka/event_dispatcher)
 
 ---
 
-This is where your description should go. Try and limit it to a paragraph or two. Consider adding a small example.
+This is PSR-14 Event Dispatcher pretty simple implementation.
 
 ## Installation
 
 You can install the package via composer:
 
 ```bash
-composer require vendor_slug/package_slug
+composer require zorachka/event-dispatcher
 ```
 
 ## Usage
@@ -42,7 +42,7 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 ## Credits
 
-- [:author_name](https://github.com/:author_username)
+- [Siarhei Bautrukevich](https://github.com/bautrukevich)
 - [All Contributors](../../contributors)
 
 ## License

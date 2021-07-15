@@ -1,16 +1,16 @@
 {
-    "name": "vendor_slug/package_slug",
-    "description": ":package_description",
+    "name": "zorachka/event-dispatcher",
+    "description": "Event Dispatcher",
     "keywords": [
-        ":vendor_name",
-        "package_slug"
+        "zorachka",
+        "event-dispatcher"
     ],
-    "homepage": "https://github.com/vendor_slug/package_slug",
+    "homepage": "https://github.com/zorachka/event-dispatcher",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "Siarhei Bautrukevich",
+            "email": "hello@bautrukevich.com",
             "role": "Developer"
         }
     ],
@@ -25,12 +25,12 @@
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src"
+            "Zorachka\\EventDispatcher\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests"
+            "Zorachka\\EventDispatcher\\Tests\\": "tests"
         }
     },
     "config": {
