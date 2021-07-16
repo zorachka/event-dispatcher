@@ -18,7 +18,7 @@ final class EventRecordingCapabilitiesTest extends TestCase
         );
 
         self::assertEquals([
-            PostWasCreated::withId($id)
+            PostWasCreated::withId($id),
         ], $post->releaseEvents());
     }
 }
