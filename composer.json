@@ -20,6 +20,7 @@
         "webmozart/assert": "^1.10"
     },
     "require-dev": {
+        "brainmaestro/composer-git-hooks": "^2.8",
         "friendsofphp/php-cs-fixer": "^2.17",
         "phpunit/phpunit": "^9.5",
         "roave/security-advisories": "dev-latest",
@@ -39,5 +40,17 @@
         "sort-packages": true
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "extra": {
+        "hooks": {
+            "pre-commit": [
+                "echo committing as $(git config user.name)",
+                "make format"
+            ],
+            "pre-push": [
+                "make format",
+                "make test"
+            ]
+        }
+    }
 }
