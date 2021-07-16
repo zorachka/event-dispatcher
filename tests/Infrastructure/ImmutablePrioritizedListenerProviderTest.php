@@ -8,12 +8,12 @@ use PHPUnit\Framework\TestCase;
 use Zorachka\EventDispatcher\Infrastructure\ImmutablePrioritizedListenerProvider;
 use Zorachka\EventDispatcher\Infrastructure\ListenerPriority;
 use Zorachka\EventDispatcher\Infrastructure\PrioritizedListenerProvider;
-use Zorachka\EventDispatcher\Tests\EmailAddress;
-use Zorachka\EventDispatcher\Tests\PostId;
-use Zorachka\EventDispatcher\Tests\PostWasCreated;
-use Zorachka\EventDispatcher\Tests\SendEmailToModerator;
-use Zorachka\EventDispatcher\Tests\SendWelcomeEmail;
-use Zorachka\EventDispatcher\Tests\UserWasRegistered;
+use Zorachka\EventDispatcher\Tests\Application\SendEmailToModerator;
+use Zorachka\EventDispatcher\Tests\Application\SendWelcomeEmail;
+use Zorachka\EventDispatcher\Tests\Domain\EmailAddress;
+use Zorachka\EventDispatcher\Tests\Domain\PostId;
+use Zorachka\EventDispatcher\Tests\Domain\PostWasCreated;
+use Zorachka\EventDispatcher\Tests\Domain\UserWasRegistered;
 
 final class ImmutablePrioritizedListenerProviderTest extends TestCase
 {

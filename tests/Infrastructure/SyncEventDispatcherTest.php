@@ -7,9 +7,9 @@ namespace Zorachka\EventDispatcher\Tests\Infrastructure;
 use PHPUnit\Framework\TestCase;
 use Psr\EventDispatcher\ListenerProviderInterface;
 use Zorachka\EventDispatcher\Infrastructure\SyncEventDispatcher;
-use Zorachka\EventDispatcher\Tests\PostId;
-use Zorachka\EventDispatcher\Tests\PostWasCreated;
-use Zorachka\EventDispatcher\Tests\SendEmailToModerator;
+use Zorachka\EventDispatcher\Tests\Application\SendEmailToModerator;
+use Zorachka\EventDispatcher\Tests\Domain\PostId;
+use Zorachka\EventDispatcher\Tests\Domain\PostWasCreated;
 
 final class SyncEventDispatcherTest extends TestCase
 {

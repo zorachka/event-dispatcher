@@ -19,7 +19,6 @@ final class PrioritizedListenerProvider implements ListenerProviderInterface
      */
     public function __construct(string $eventClassName, array $listeners)
     {
-        Assert::classExists($eventClassName);
         Assert::allIsCallable($listeners);
         \krsort($listeners, \SORT_NUMERIC);
 

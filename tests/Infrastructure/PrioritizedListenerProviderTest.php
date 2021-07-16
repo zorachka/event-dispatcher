@@ -7,9 +7,9 @@ namespace Zorachka\EventDispatcher\Tests\Infrastructure;
 use PHPUnit\Framework\TestCase;
 use Zorachka\EventDispatcher\Infrastructure\ListenerPriority;
 use Zorachka\EventDispatcher\Infrastructure\PrioritizedListenerProvider;
-use Zorachka\EventDispatcher\Tests\PostId;
-use Zorachka\EventDispatcher\Tests\PostWasCreated;
-use Zorachka\EventDispatcher\Tests\SendEmailToModerator;
+use Zorachka\EventDispatcher\Tests\Application\SendEmailToModerator;
+use Zorachka\EventDispatcher\Tests\Domain\PostId;
+use Zorachka\EventDispatcher\Tests\Domain\PostWasCreated;
 
 final class PrioritizedListenerProviderTest extends TestCase
 {

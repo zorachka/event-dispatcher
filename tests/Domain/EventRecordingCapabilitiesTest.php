@@ -5,9 +5,6 @@ declare(strict_types=1);
 namespace Zorachka\EventDispatcher\Tests\Domain;
 
 use PHPUnit\Framework\TestCase;
-use Zorachka\EventDispatcher\Tests\Post;
-use Zorachka\EventDispatcher\Tests\PostId;
-use Zorachka\EventDispatcher\Tests\PostWasCreated;
 
 final class EventRecordingCapabilitiesTest extends TestCase
 {
