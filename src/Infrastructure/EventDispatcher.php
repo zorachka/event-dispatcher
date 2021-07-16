@@ -2,10 +2,10 @@
 
 namespace Zorachka\EventDispatcher\Infrastructure;
 
-use RuntimeException;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\EventDispatcher\ListenerProviderInterface;
 use Psr\EventDispatcher\StoppableEventInterface;
+use RuntimeException;
 
 final class EventDispatcher implements EventDispatcherInterface
 {
