@@ -1,23 +1,27 @@
 {
-    "name": "vendor_slug/package_slug",
-    "description": ":package_description",
+    "name": "zorachka/event-dispatcher",
+    "description": "Event Dispatcher",
     "keywords": [
-        ":vendor_name",
-        "package_slug"
+        "zorachka",
+        "event-dispatcher"
     ],
-    "homepage": "https://github.com/vendor_slug/package_slug",
+    "homepage": "https://github.com/zorachka/event-dispatcher",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "Siarhei Bautrukevich",
+            "email": "hello@bautrukevich.com",
             "role": "Developer"
         }
     ],
     "require": {
-        "php": "^7.4|^8.0"
+        "php": "^8.0",
+        "psr/event-dispatcher": "^1.0",
+        "webmozart/assert": "^1.10"
     },
     "require-dev": {
+        "brainmaestro/composer-git-hooks": "^2.8",
+        "dg/bypass-finals": "^1.3",
         "friendsofphp/php-cs-fixer": "^2.17",
         "phpunit/phpunit": "^9.5",
         "roave/security-advisories": "dev-latest",
@@ -25,17 +29,29 @@
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src"
+            "Zorachka\\EventDispatcher\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests"
+            "Zorachka\\EventDispatcher\\Tests\\": "tests"
         }
     },
     "config": {
         "sort-packages": true
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "extra": {
+        "hooks": {
+            "pre-commit": [
+                "echo committing as $(git config user.name)",
+                "make format"
+            ],
+            "pre-push": [
+                "make format",
+                "make test"
+            ]
+        }
+    }
 }
