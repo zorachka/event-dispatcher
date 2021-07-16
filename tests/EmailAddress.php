@@ -14,7 +14,7 @@ final class EmailAddress
     {
     }
 
-    public function fromString(string $emailAddress): self
+    public static function fromString(string $emailAddress): self
     {
         Assert::email($emailAddress);
         $self = new self();

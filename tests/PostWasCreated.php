@@ -8,6 +8,10 @@ final class PostWasCreated
 {
     private PostId $id;
 
+    private function __construct()
+    {
+    }
+
     public static function withId(PostId $id): self
     {
         $self = new self();
