@@ -2,16 +2,18 @@
 
 namespace Zorachka\EventDispatcher\Infrastructure;
 
+use RuntimeException;
 use Psr\EventDispatcher\EventDispatcherInterface;
+use Psr\EventDispatcher\ListenerProviderInterface;
 use Psr\EventDispatcher\StoppableEventInterface;
 
 final class EventDispatcher implements EventDispatcherInterface
 {
-    private ListenerRegistry $registry;
+    private ListenerProviderInterface $listenerProvider;
 
-    public function __construct(ListenerRegistry $registry)
+    public function __construct(ListenerProviderInterface $listenerProvider)
     {
-        $this->registry = $registry;
+        $this->listenerProvider = $listenerProvider;
     }
 
     /**
@@ -19,14 +21,18 @@ final class EventDispatcher implements EventDispatcherInterface
      */
     public function dispatch(object $event): object
     {
-        $listeners = $this->registry->listenersFor($event::class);
+        foreach ($this->listenerProvider->getListenersForEvent($event) as $listener) {
+            $returnedEvent = $listener($event);
 
-        foreach ($listeners as [$listener]) {
-            if ($event instanceof StoppableEventInterface && $event->isPropagationStopped()) {
-                break;
+            if (! $returnedEvent instanceof $event) {
+                throw new RuntimeException('The listener did not return what was expected');
             }
 
-            $listener($event);
+            if ($returnedEvent instanceof StoppableEventInterface
+                && $returnedEvent->isPropagationStopped()
+            ) {
+                break;
+            }
         }
 
         return $event;
