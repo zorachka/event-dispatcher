@@ -25,7 +25,7 @@ final class EventDispatcher implements EventDispatcherInterface
             $returnedEvent = $listener($event);
 
             if (! $returnedEvent instanceof $event) {
-                throw new RuntimeException('The listener did not return what was expected');
+                throw new RuntimeException('The listener did not return what was expected: must return an event');
             }
 
             if ($returnedEvent instanceof StoppableEventInterface
