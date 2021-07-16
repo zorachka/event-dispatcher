@@ -19,8 +19,88 @@ composer require zorachka/event-dispatcher
 
 ## Usage
 
+For standalone usage example below. In your entity you need to register event:
+
 ```php
+<?php
+
+declare(strict_types=1);
+
+namespace Project\Domain;
+
+use Zorachka\EventDispatcher\Domain\EventRecordingCapabilities;
+
+final class Post
+{
+    use EventRecordingCapabilities;
+
+    private PostId $id;
+
+    private function __construct()
+    {
+    }
+
+    public static function create(PostId $id): self
+    {
+        $self = new self();
+        $self->id = $id;
+
+        $self->registerThat(PostWasCreated::withId($id));
+
+        return $self;
+    }
+}
+
 ```
+
+Configure `EventDispatcherInterface`:
+
+```php
+<?php
+
+declare(strict_types=1);
+
+require __DIR__ . 'vendor/autoload.php';
+
+use Zorachka\EventDispatcher\Infrastructure\ImmutablePrioritizedListenerProvider;
+use Zorachka\EventDispatcher\Infrastructure\ListenerPriority;
+use Zorachka\EventDispatcher\Infrastructure\PrioritizedListenerProvider;
+use Zorachka\EventDispatcher\Infrastructure\SyncEventDispatcher;
+
+use Project\Domain\Post;
+use Project\Domain\PostId;
+use Project\Domain\PostWasCreated;
+use Project\Application\SendEmailToModerator;
+
+use Project\Domain\UserWasRegistered;
+use Project\Application\SendWelcomeEmail;
+
+$registry = new ImmutablePrioritizedListenerProvider(
+    new PrioritizedListenerProvider(PostWasCreated::class, [
+        ListenerPriority::NORMAL => new SendEmailToModerator(),
+    ]),
+    new PrioritizedListenerProvider(UserWasRegistered::class, [
+        ListenerPriority::NORMAL => new SendWelcomeEmail(), 
+    ]),
+);
+$dispatcher = new SyncEventDispatcher($registry);
+
+// And in your application use case:
+
+$post = Post::create(
+    PostId::fromString('00000000-0000-0000-0000-000000000000')
+);
+
+foreach ($post->releaseEvents() as $event) {
+    $dispatcher->dispatch($event);
+}
+
+```
+
+Of course that is better to use DI and you can take 
+definitions from `ConfigProvider` class. 
+After that in your application you can easily inject `EventDispatcherInterface`.
+
 
 ## Testing
 
