@@ -9,7 +9,7 @@ use Webmozart\Assert\Assert;
 
 final class PrioritizedListenerProvider implements ListenerProviderInterface
 {
-    private array $listeners;
+    private array $listeners = [];
     private string $eventClassName;
 
     /**
@@ -21,8 +21,11 @@ final class PrioritizedListenerProvider implements ListenerProviderInterface
     {
         Assert::classExists($eventClassName);
         Assert::allIsCallable($listeners);
-        \ksort($listeners, \SORT_NUMERIC);
-        $this->listeners = $listeners;
+        \krsort($listeners, \SORT_NUMERIC);
+
+        foreach ($listeners as $listener) {
+            $this->listeners[$eventClassName][] = $listener;
+        }
         $this->eventClassName = $eventClassName;
     }
 
