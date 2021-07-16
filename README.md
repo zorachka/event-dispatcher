@@ -1,9 +1,9 @@
 # Event Dispatcher
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/zorachka/event_dispatcher.svg?style=flat-square)](https://packagist.org/packages/zorachka/event_dispatcher)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/zorachka/event_dispatcher/run-tests?label=tests)](https://github.com/zorachka/event_dispatcher/actions?query=workflow%3ATests+branch%3Amaster)
-[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/zorachka/event_dispatcher/Check%20&%20fix%20styling?label=code%20style)](https://github.com/zorachka/event_dispatcher/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amaster)
-[![Total Downloads](https://img.shields.io/packagist/dt/zorachka/event_dispatcher.svg?style=flat-square)](https://packagist.org/packages/zorachka/event_dispatcher)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/zorachka/event-dispatcher.svg?style=flat-square)](https://packagist.org/packages/zorachka/event-dispatcher)
+[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/zorachka/event-dispatcher/run-tests?label=tests)](https://github.com/zorachka/event-dispatcher/actions?query=workflow%3ATests+branch%3Amaster)
+[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/zorachka/event-dispatcher/Check%20&%20fix%20styling?label=code%20style)](https://github.com/zorachka/event-dispatcher/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amaster)
+[![Total Downloads](https://img.shields.io/packagist/dt/zorachka/event-dispatcher.svg?style=flat-square)](https://packagist.org/packages/zorachka/event-dispatcher)
 
 ---
 
