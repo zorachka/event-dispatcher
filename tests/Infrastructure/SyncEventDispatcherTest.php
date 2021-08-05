@@ -6,8 +6,12 @@ namespace Zorachka\EventDispatcher\Tests\Infrastructure;
 
 use PHPUnit\Framework\TestCase;
 use Psr\EventDispatcher\ListenerProviderInterface;
+use Zorachka\EventDispatcher\Infrastructure\CouldNotFindListener;
+use Zorachka\EventDispatcher\Infrastructure\ImmutablePrioritizedListenerProvider;
+use Zorachka\EventDispatcher\Infrastructure\PrioritizedListenerProvider;
 use Zorachka\EventDispatcher\Infrastructure\SyncEventDispatcher;
 use Zorachka\EventDispatcher\Tests\Application\SendEmailToModerator;
+use Zorachka\EventDispatcher\Tests\Domain\EventWithoutListener;
 use Zorachka\EventDispatcher\Tests\Domain\PostId;
 use Zorachka\EventDispatcher\Tests\Domain\PostWasCreated;
 

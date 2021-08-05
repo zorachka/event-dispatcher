@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace Zorachka\EventDispatcher\Tests\Infrastructure;
 
 use PHPUnit\Framework\TestCase;
+use Zorachka\EventDispatcher\Infrastructure\CouldNotFindListener;
 use Zorachka\EventDispatcher\Infrastructure\ImmutablePrioritizedListenerProvider;
 use Zorachka\EventDispatcher\Infrastructure\ListenerPriority;
 use Zorachka\EventDispatcher\Infrastructure\PrioritizedListenerProvider;
 use Zorachka\EventDispatcher\Tests\Application\SendEmailToModerator;
 use Zorachka\EventDispatcher\Tests\Application\SendWelcomeEmail;
 use Zorachka\EventDispatcher\Tests\Domain\EmailAddress;
+use Zorachka\EventDispatcher\Tests\Domain\EventWithoutListener;
 use Zorachka\EventDispatcher\Tests\Domain\PostId;
 use Zorachka\EventDispatcher\Tests\Domain\PostWasCreated;
 use Zorachka\EventDispatcher\Tests\Domain\UserWasRegistered;
@@ -73,5 +75,12 @@ final class ImmutablePrioritizedListenerProviderTest extends TestCase
     public function testGetListenersForEventWithPriority(object $event, array $expectedListeners): void
     {
         $this->assertEqualsCanonicalizing($expectedListeners, $this->registry->getListenersForEvent($event));
+    }
+
+    public function testWithoutEventListener(): void
+    {
+        $event = new EventWithoutListener();
+        self::expectException(CouldNotFindListener::class);
+        $this->registry->getListenersForEvent($event);
     }
 }

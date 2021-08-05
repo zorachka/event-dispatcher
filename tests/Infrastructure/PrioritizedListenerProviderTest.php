@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace Zorachka\EventDispatcher\Tests\Infrastructure;
 
 use PHPUnit\Framework\TestCase;
+use Zorachka\EventDispatcher\Infrastructure\CouldNotFindListener;
 use Zorachka\EventDispatcher\Infrastructure\ListenerPriority;
 use Zorachka\EventDispatcher\Infrastructure\PrioritizedListenerProvider;
 use Zorachka\EventDispatcher\Tests\Application\SendEmailToModerator;
+use Zorachka\EventDispatcher\Tests\Domain\EventWithoutListener;
 use Zorachka\EventDispatcher\Tests\Domain\PostId;
 use Zorachka\EventDispatcher\Tests\Domain\PostWasCreated;
 
@@ -41,5 +43,12 @@ final class PrioritizedListenerProviderTest extends TestCase
             new SendEmailToModerator(ListenerPriority::NORMAL),
             new SendEmailToModerator(ListenerPriority::LOW),
         ], $this->provider->getListenersForEvent($event));
+    }
+
+    public function testWithoutEventListener(): void
+    {
+        $event = new EventWithoutListener();
+        self::expectException(CouldNotFindListener::class);
+        $this->provider->getListenersForEvent($event);
     }
 }
