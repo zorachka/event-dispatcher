@@ -6,7 +6,6 @@ namespace Zorachka\EventDispatcher\Infrastructure;
 
 use Psr\EventDispatcher\ListenerProviderInterface;
 use Webmozart\Assert\Assert;
-use function usort;
 
 final class ImmutablePrioritizedListenerProvider implements ListenerProviderInterface
 {
@@ -26,6 +25,7 @@ final class ImmutablePrioritizedListenerProvider implements ListenerProviderInte
 
     /**
      * @inheritDoc
+     * @throws CouldNotFindListener
      */
     public function getListenersForEvent(object $event): iterable
     {
@@ -36,6 +36,6 @@ final class ImmutablePrioritizedListenerProvider implements ListenerProviderInte
             return $provider->getListenersForEvent($event);
         }
 
-        return [];
+        throw CouldNotFindListener::forEvent($event);
     }
 }

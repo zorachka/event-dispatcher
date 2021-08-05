@@ -18,6 +18,7 @@ final class SyncEventDispatcher implements EventDispatcherInterface
 
     /**
      * @inheritDoc
+     * @throws CouldNotFindListener
      */
     public function dispatch(object $event): object
     {

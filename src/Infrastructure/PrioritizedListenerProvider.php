@@ -38,6 +38,7 @@ final class PrioritizedListenerProvider implements ListenerProviderInterface
 
     /**
      * @inheritDoc
+     * @throws CouldNotFindListener
      */
     public function getListenersForEvent(object $event): iterable
     {
@@ -46,6 +47,6 @@ final class PrioritizedListenerProvider implements ListenerProviderInterface
             return $this->listeners[$eventClassName];
         }
 
-        return [];
+        throw CouldNotFindListener::forEvent($event);
     }
 }

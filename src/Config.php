@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Zorachka\EventDispatcher;
 
+use Zorachka\EventDispatcher\Infrastructure\ListenerPriority;
+
 final class Config
 {
-    private array $config = [];
-
-    private function __construct()
+    private function __construct(private array $config)
     {
     }
 
-    public function __invoke(): array
+    public function build(): array
     {
         return [
             'config' => [
@@ -21,10 +21,9 @@ final class Config
         ];
     }
 
-    public static function defaults(): self
+    public static function withDefaults(): self
     {
-        $self = new self();
-        $self->config = [
+        return new self([
             'listeners' => [
 //                Event::class => [
 //                    ListenerPriority::HIGH => $listener1,
@@ -32,15 +31,27 @@ final class Config
 //                    ListenerPriority::LOW => $listener3,
 //                ],
             ]
-        ];
-
-        return $self;
+        ]);
     }
 
-    public function addEventListeners(string $eventClassName, array $listeners): self
-    {
+    /**
+     * @param class-string $eventClassName
+     * @param class-string $listenerClassName
+     * @param int $priority
+     * @return $this
+     */
+    public function addEventListener(
+        string $eventClassName,
+        string $listenerClassName,
+        int $priority = ListenerPriority::NORMAL
+    ): self {
         $new = clone $this;
-        $new->config['listeners'][$eventClassName] = $listeners;
+
+        if ($priority === ListenerPriority::NORMAL) {
+            $new->config['listeners'][$eventClassName][] = $listenerClassName;
+        } else {
+            $new->config['listeners'][$eventClassName][$priority] = $listenerClassName;
+        }
 
         return $new;
     }
