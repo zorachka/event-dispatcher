@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Zorachka\EventDispatcher;
 
+use Zorachka\EventDispatcher\Infrastructure\ListenerPriority;
+
 final class Config
 {
     private array $config = [];
@@ -37,10 +39,19 @@ final class Config
         return $self;
     }
 
-    public function addEventListeners(string $eventClassName, array $listeners): self
-    {
+    /**
+     * @param class-string $eventClassName
+     * @param class-string $listenerClassName
+     * @param int $priority
+     * @return $this
+     */
+    public function addEventListener(
+        string $eventClassName,
+        string $listenerClassName,
+        int $priority = ListenerPriority::NORMAL
+    ): self {
         $new = clone $this;
-        $new->config['listeners'][$eventClassName] = $listeners;
+        $new->config['listeners'][$eventClassName][$priority] = $listenerClassName;
 
         return $new;
     }
