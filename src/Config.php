@@ -46,7 +46,12 @@ final class Config
         int $priority = ListenerPriority::NORMAL
     ): self {
         $new = clone $this;
-        $new->config['listeners'][$eventClassName][$priority] = $listenerClassName;
+
+        if ($priority === ListenerPriority::NORMAL) {
+            $new->config['listeners'][$eventClassName][] = $listenerClassName;
+        } else {
+            $new->config['listeners'][$eventClassName][$priority] = $listenerClassName;
+        }
 
         return $new;
     }

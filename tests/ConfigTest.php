@@ -45,4 +45,26 @@ final class ConfigTest extends TestCase
             ],
         ], $defaultConfig->build());
     }
+
+    public function testAddEventListenerWithPriority(): void
+    {
+        $defaultConfig = Config::withDefaults()
+            ->addEventListener(
+                PostWasCreated::class,
+                SendEmailToModerator::class,
+                ListenerPriority::LOW,
+            );
+
+        self::assertEquals([
+            'config' => [
+                'event-dispatcher' => [
+                    'listeners' => [
+                        PostWasCreated::class => [
+                            ListenerPriority::LOW => SendEmailToModerator::class,
+                        ],
+                    ],
+                ],
+            ],
+        ], $defaultConfig->build());
+    }
 }
