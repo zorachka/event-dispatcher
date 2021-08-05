@@ -8,13 +8,11 @@ use Zorachka\EventDispatcher\Infrastructure\ListenerPriority;
 
 final class Config
 {
-    private array $config = [];
-
-    private function __construct()
+    private function __construct(private array $config)
     {
     }
 
-    public function __invoke(): array
+    public function build(): array
     {
         return [
             'config' => [
@@ -23,10 +21,9 @@ final class Config
         ];
     }
 
-    public static function defaults(): self
+    public static function withDefaults(): self
     {
-        $self = new self();
-        $self->config = [
+        return new self([
             'listeners' => [
 //                Event::class => [
 //                    ListenerPriority::HIGH => $listener1,
@@ -34,9 +31,7 @@ final class Config
 //                    ListenerPriority::LOW => $listener3,
 //                ],
             ]
-        ];
-
-        return $self;
+        ]);
     }
 
     /**

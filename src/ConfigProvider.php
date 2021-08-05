@@ -15,8 +15,8 @@ final class ConfigProvider
 {
     public function __invoke(): array
     {
-        $defaultConfig = Config::defaults();
-        $defaults = $defaultConfig();
+        $defaultConfig = Config::withDefaults();
+        $defaults = $defaultConfig->build();
 
         return [
             ListenerProviderInterface::class => static function (ContainerInterface $container) {
