@@ -1,8 +1,8 @@
 # Event Dispatcher
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/zorachka/event-dispatcher.svg?style=flat-square)](https://packagist.org/packages/zorachka/event-dispatcher)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/zorachka/event-dispatcher/run-tests?label=tests)](https://github.com/zorachka/event-dispatcher/actions?query=workflow%3ATests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/zorachka/event-dispatcher/Check%20&%20fix%20styling?label=code%20style)](https://github.com/zorachka/event-dispatcher/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/zorachka/event-dispatcher/run-tests?label=tests)](https://github.com/zorachka/event-dispatcher/actions/workflows/run-tests.yml)
+[![Check & fix styling](https://github.com/zorachka/event-dispatcher/workflows/Check%20&%20fix%20styling/badge.svg)](https://github.com/zorachka/event-dispatcher/actions/workflows/php-cs-fixer.yml)
 [![Total Downloads](https://img.shields.io/packagist/dt/zorachka/event-dispatcher.svg?style=flat-square)](https://packagist.org/packages/zorachka/event-dispatcher)
 
 ---
