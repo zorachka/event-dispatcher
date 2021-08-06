@@ -7,7 +7,14 @@
 
 ---
 
-This is PSR-14 Event Dispatcher pretty simple implementation.
+This is PSR-14 Event Dispatcher pretty simple implementation and framework agnostic solution.
+
+## Why another one?
+
+Because: 
+- you want to follow standard and don't worry about implementation. You 
+can change this provider to another one anytime. 
+- you don't need complicated and overhead solution.
 
 ## Requirements
 
