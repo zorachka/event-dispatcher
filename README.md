@@ -105,7 +105,7 @@ After that in your application you can easily inject `EventDispatcherInterface`.
 ## Testing
 
 ```bash
-composer test
+make test
 ```
 
 ## Changelog
