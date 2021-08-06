@@ -2,6 +2,13 @@
 
 All notable changes to `event-dispatcher` will be documented in this file.
 
-## 1.0.0 - 202X-XX-XX
+## 1.1.0 - 2021-08-06
 
-- initial release
+- Now dispatcher throws `Zorachka\EventDispatcher\Infrastructure\CouldNotFindListener::class` exception if listener 
+  was not found for event;
+  
+- `Zorachka\EventDispatcher\Infrastructure\Config::class` methods were updated.
+
+## 1.0.0 - 2021-07-23
+
+- Initial release.
