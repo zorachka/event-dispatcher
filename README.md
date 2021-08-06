@@ -44,7 +44,7 @@ use Zorachka\EventDispatcher\Domain\EventRecordingCapabilities;
 
 final class Post
 {
-    use EventRecordingCapabilities;
+    use EventRecordingCapabilities; // use trait to register and release events
 
     private function __construct(private PostId $id)
     {
@@ -53,7 +53,7 @@ final class Post
     public static function create(PostId $id): self
     {
         $self = new self($id);
-        $self->registerThat(PostWasCreated::withId($id));
+        $self->registerThat(PostWasCreated::withId($id)); // register event
 
         return $self;
     }
