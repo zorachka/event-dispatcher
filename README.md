@@ -26,7 +26,7 @@ For standalone usage example below. In your entity you need to register event:
 
 declare(strict_types=1);
 
-namespace Project\Domain;
+namespace YourProject\Domain;
 
 use Zorachka\EventDispatcher\Domain\EventRecordingCapabilities;
 
@@ -34,17 +34,13 @@ final class Post
 {
     use EventRecordingCapabilities;
 
-    private PostId $id;
-
-    private function __construct()
+    private function __construct(private PostId $id)
     {
     }
 
     public static function create(PostId $id): self
     {
-        $self = new self();
-        $self->id = $id;
-
+        $self = new self($id);
         $self->registerThat(PostWasCreated::withId($id));
 
         return $self;
@@ -67,13 +63,13 @@ use Zorachka\EventDispatcher\Infrastructure\ListenerPriority;
 use Zorachka\EventDispatcher\Infrastructure\PrioritizedListenerProvider;
 use Zorachka\EventDispatcher\Infrastructure\SyncEventDispatcher;
 
-use Project\Domain\Post;
-use Project\Domain\PostId;
-use Project\Domain\PostWasCreated;
-use Project\Application\SendEmailToModerator;
+use YourProject\Domain\Post;
+use YourProject\Domain\PostId;
+use YourProject\Domain\PostWasCreated;
+use YourProject\Application\SendEmailToModerator;
 
-use Project\Domain\UserWasRegistered;
-use Project\Application\SendWelcomeEmail;
+use YourProject\Domain\UserWasRegistered;
+use YourProject\Application\SendWelcomeEmail;
 
 $registry = new ImmutablePrioritizedListenerProvider(
     new PrioritizedListenerProvider(PostWasCreated::class, [
