@@ -9,6 +9,10 @@
 
 This is PSR-14 Event Dispatcher pretty simple implementation.
 
+## Requirements
+
+- The minimum PHP version is 8.0.
+
 ## Installation
 
 You can install the package via composer:
