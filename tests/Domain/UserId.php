@@ -8,19 +8,15 @@ use Webmozart\Assert\Assert;
 
 final class UserId
 {
-    private string $id;
-
-    private function __construct()
-    {
+    private function __construct(
+        private string $id
+    ) {
+        Assert::uuid($id);
     }
 
     public static function fromString(string $id): self
     {
-        Assert::uuid($id);
-        $self = new self();
-        $self->id = $id;
-
-        return $self;
+        return new self($id);
     }
 
     public function asString(): string

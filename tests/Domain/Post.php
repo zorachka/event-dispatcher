@@ -10,17 +10,14 @@ final class Post
 {
     use EventRecordingCapabilities;
 
-    private PostId $id;
-
-    private function __construct()
-    {
+    private function __construct(
+        private PostId $id
+    ) {
     }
 
     public static function create(PostId $id): self
     {
-        $self = new self();
-        $self->id = $id;
-
+        $self = new self($id);
         $self->registerThat(PostWasCreated::withId($id));
 
         return $self;

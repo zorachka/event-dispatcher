@@ -8,19 +8,15 @@ use Webmozart\Assert\Assert;
 
 final class EmailAddress
 {
-    private string $emailAddress;
-
-    private function __construct()
-    {
+    private function __construct(
+        private string $emailAddress
+    ) {
+        Assert::email($emailAddress);
     }
 
     public static function fromString(string $emailAddress): self
     {
-        Assert::email($emailAddress);
-        $self = new self();
-        $self->emailAddress = $emailAddress;
-
-        return $self;
+        return new self($emailAddress);
     }
 
     public function asString(): string
