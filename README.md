@@ -98,9 +98,35 @@ foreach ($post->releaseEvents() as $event) {
 ```
 
 Of course that is better to use DI and you can take 
-definitions from `ConfigProvider` class. 
-After that in your application you can easily inject `EventDispatcherInterface`.
+definitions from `Zorachka\EventDispatcher\ConfigProvider` class. 
+After that in your application you can easily inject `Psr\EventDispatcher\EventDispatcherInterface`.
 
+Also, you can configure listeners for events pass them into config:
+
+```php
+use Zorachka\EventDispatcher\Config;
+use Zorachka\EventDispatcher\Tests\Application\SendEmailToModerator;
+use Zorachka\EventDispatcher\Tests\Domain\UserWasRegistered;
+
+$config = Config::withDefaults()
+    ->addEventListener(UserWasRegistered::class, SendEmailToModerator::class)
+    ->build(); // and you will get an array of definitions for container
+
+```
+
+And even set priority (`ListenerPriority::NORMAL` by default):
+
+```php
+use Zorachka\EventDispatcher\Config;
+use Zorachka\EventDispatcher\Infrastructure\ListenerPriority;
+use Zorachka\EventDispatcher\Tests\Application\SendEmailToModerator;
+use Zorachka\EventDispatcher\Tests\Domain\UserWasRegistered;
+
+$config = Config::withDefaults()
+    ->addEventListener(UserWasRegistered::class, SendEmailToModerator::class, ListenerPriority::HIGH)
+    ->build(); // and you will get an array of definitions for container
+
+```
 
 ## Testing
 
