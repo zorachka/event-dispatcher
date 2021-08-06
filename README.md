@@ -13,8 +13,9 @@ This is PSR-14 Event Dispatcher pretty simple implementation and framework agnos
 
 Because: 
 - you want to follow standard and don't worry about implementation. You 
-can change this provider to another one anytime. 
-- you don't need complicated and overhead solution.
+can change this provider to another one anytime;
+- you don't need complicated and overhead solution;
+- you want easy configure and use event dispatcher.
 
 ## Requirements
 
