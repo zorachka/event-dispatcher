@@ -53,7 +53,7 @@ final class Post
 
 ```
 
-Configure `EventDispatcherInterface`:
+Configure `Psr\EventDispatcher\EventDispatcherInterface`:
 
 ```php
 <?php
