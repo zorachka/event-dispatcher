@@ -25,7 +25,12 @@ final class ConfigProvider
                 $listeners = $eventDispatcherConfig['listeners'] ?? [];
 
                 $providers = [];
-                foreach ($listeners as $eventClassName => $eventListeners) {
+                foreach ($listeners as $eventClassName => $rawEventListeners) {
+                    $eventListeners = [];
+
+                    foreach ($rawEventListeners as $eventListener) {
+                        $eventListeners[] = $container->get($eventListener);
+                    }
                     $providers[] = new PrioritizedListenerProvider($eventClassName, $eventListeners);
                 }
 
