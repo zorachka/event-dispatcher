@@ -6,18 +6,14 @@ namespace Zorachka\EventDispatcher\Tests\Domain;
 
 final class PostWasCreated
 {
-    private PostId $id;
-
-    private function __construct()
-    {
+    private function __construct(
+        private PostId $id
+    ) {
     }
 
     public static function withId(PostId $id): self
     {
-        $self = new self();
-        $self->id = $id;
-
-        return $self;
+        return new self($id);
     }
 
     /**

@@ -6,18 +6,14 @@ namespace Zorachka\EventDispatcher\Tests\Domain;
 
 final class UserWasRegistered
 {
-    private EmailAddress $emailAddress;
-
-    private function __construct()
-    {
+    private function __construct(
+        private EmailAddress $emailAddress
+    ) {
     }
 
     public static function withEmailAddress(EmailAddress $emailAddress): self
     {
-        $self = new self();
-        $self->emailAddress = $emailAddress;
-
-        return $self;
+        return new self($emailAddress);
     }
 
     /**
