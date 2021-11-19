@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Zorachka\EventDispatcher\Tests\Domain;
+namespace Zorachka\Framework\Tests\Datasets\EventDispatcher\Domain;
 
-use Zorachka\EventDispatcher\Domain\EventRecordingCapabilities;
+use Zorachka\Framework\EventDispatcher\EventRecordingCapabilities;
 
 final class Post
 {

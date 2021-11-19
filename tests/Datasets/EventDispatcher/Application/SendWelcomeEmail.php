@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Zorachka\EventDispatcher\Tests\Application;
+namespace Zorachka\Framework\Tests\Datasets\EventDispatcher\Application;
 
-use Zorachka\EventDispatcher\Tests\Domain\PostWasCreated;
+use Zorachka\Framework\Tests\Datasets\EventDispatcher\Domain\UserWasRegistered;
 
-final class SendEmailToModerator
+final class SendWelcomeEmail
 {
     private bool $wasCalled = false;
     private int $priority;
@@ -16,7 +16,7 @@ final class SendEmailToModerator
         $this->priority = $priority;
     }
 
-    public function __invoke(PostWasCreated $event): PostWasCreated
+    public function __invoke(UserWasRegistered $event): UserWasRegistered
     {
         $this->wasCalled = true;
 

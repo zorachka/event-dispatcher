@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Zorachka\EventDispatcher\Tests\Domain;
+namespace Zorachka\Framework\Tests\Datasets\EventDispatcher\Domain;
 
 use Webmozart\Assert\Assert;
 
-final class PostId
+final class UserId
 {
     private function __construct(
         private string $id

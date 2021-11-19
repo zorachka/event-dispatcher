@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Zorachka\EventDispatcher\Tests\Domain;
+namespace Zorachka\Framework\Tests\Datasets\EventDispatcher\Domain;
 
 use Webmozart\Assert\Assert;
 
