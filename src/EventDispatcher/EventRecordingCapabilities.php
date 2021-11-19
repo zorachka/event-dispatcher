@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Zorachka\EventDispatcher\Domain;
+namespace Zorachka\Framework\EventDispatcher;
 
 trait EventRecordingCapabilities
 {

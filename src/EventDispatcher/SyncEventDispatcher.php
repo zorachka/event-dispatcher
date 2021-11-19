@@ -1,11 +1,12 @@
 <?php
 
-namespace Zorachka\EventDispatcher\Infrastructure;
+namespace Zorachka\Framework\EventDispatcher;
 
-use RuntimeException;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\EventDispatcher\ListenerProviderInterface;
 use Psr\EventDispatcher\StoppableEventInterface;
+use Zorachka\Framework\EventDispatcher\Exceptions\CouldNotFindListener;
+use Zorachka\Framework\EventDispatcher\Exceptions\ListenerShouldReturnEvent;
 
 final class SyncEventDispatcher implements EventDispatcherInterface
 {
@@ -26,7 +27,13 @@ final class SyncEventDispatcher implements EventDispatcherInterface
             $returnedEvent = $listener($event);
 
             if (! $returnedEvent instanceof $event) {
-                throw new RuntimeException('The listener did not return what was expected: must return an event');
+                throw new ListenerShouldReturnEvent(
+                    \sprintf(
+                        'The "%s" listener did not return what was expected: must return an "%s" event',
+                        $listener::class,
+                        $event::class,
+                    )
+                );
             }
 
             if ($returnedEvent instanceof StoppableEventInterface

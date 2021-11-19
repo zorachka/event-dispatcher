@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Zorachka\EventDispatcher\Infrastructure;
+namespace Zorachka\Framework\EventDispatcher;
 
 use Psr\EventDispatcher\ListenerProviderInterface;
 use Webmozart\Assert\Assert;
+use Zorachka\Framework\EventDispatcher\Exceptions\CouldNotFindListener;
 
 final class PrioritizedListenerProvider implements ListenerProviderInterface
 {

@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Zorachka\EventDispatcher\Infrastructure;
+namespace Zorachka\Framework\EventDispatcher;
 
 use Psr\EventDispatcher\ListenerProviderInterface;
 use Webmozart\Assert\Assert;
+use Zorachka\Framework\EventDispatcher\Exceptions\CouldNotFindListener;
 
 final class ImmutablePrioritizedListenerProvider implements ListenerProviderInterface
 {
@@ -33,6 +34,7 @@ final class ImmutablePrioritizedListenerProvider implements ListenerProviderInte
         if (isset($this->providers[$eventClassName])) {
             /** @var PrioritizedListenerProvider $provider */
             $provider = $this->providers[$eventClassName];
+
             return $provider->getListenersForEvent($event);
         }
 
