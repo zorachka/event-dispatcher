@@ -1,8 +1,13 @@
-# Event Dispatcher
+<p align="center">
+    <a href="https://github.com/zorachka" target="_blank">
+        <img src="https://avatars0.githubusercontent.com/u/86768962" height="240px">
+    </a>
+    <h1 align="center">Zorachka Event Dispatcher</h1>
+    <br>
+</p>
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/zorachka/event-dispatcher.svg?style=flat-square)](https://packagist.org/packages/zorachka/event-dispatcher)
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/zorachka/event-dispatcher/run-tests?label=tests)](https://github.com/zorachka/event-dispatcher/actions/workflows/run-tests.yml)
-[![Check & fix styling](https://github.com/zorachka/event-dispatcher/workflows/Check%20&%20fix%20styling/badge.svg)](https://github.com/zorachka/event-dispatcher/actions/workflows/php-cs-fixer.yml)
 [![Total Downloads](https://img.shields.io/packagist/dt/zorachka/event-dispatcher.svg?style=flat-square)](https://packagist.org/packages/zorachka/event-dispatcher)
 
 ---
