@@ -45,7 +45,7 @@ declare(strict_types=1);
 
 namespace YourProject\Domain;
 
-use Zorachka\EventDispatcher\Domain\EventRecordingCapabilities;
+use Zorachka\Framework\EventDispatcher\EventRecordingCapabilities;
 
 final class Post
 {
@@ -75,10 +75,10 @@ declare(strict_types=1);
 
 require __DIR__ . 'vendor/autoload.php';
 
-use Zorachka\EventDispatcher\Infrastructure\ImmutablePrioritizedListenerProvider;
-use Zorachka\EventDispatcher\Infrastructure\ListenerPriority;
-use Zorachka\EventDispatcher\Infrastructure\PrioritizedListenerProvider;
-use Zorachka\EventDispatcher\Infrastructure\SyncEventDispatcher;
+use Zorachka\Framework\EventDispatcher\ImmutablePrioritizedListenerProvider;
+use Zorachka\Framework\EventDispatcher\ListenerPriority;
+use Zorachka\Framework\EventDispatcher\PrioritizedListenerProvider;
+use Zorachka\Framework\EventDispatcher\SyncEventDispatcher;
 
 use YourProject\Domain\Post;
 use YourProject\Domain\PostId;
@@ -111,34 +111,32 @@ foreach ($post->releaseEvents() as $event) {
 ```
 
 Of course that is better to use DI and you can take 
-definitions from `Zorachka\EventDispatcher\ConfigProvider` class. 
+definitions from `Zorachka\Framework\EventDispatcher\EventDispatcherServiceProvider` class. 
 After that in your application you can easily inject `Psr\EventDispatcher\EventDispatcherInterface`.
 
 Also, you can configure listeners for events pass them into config:
 
 ```php
-use Zorachka\EventDispatcher\Config;
-use Zorachka\EventDispatcher\Tests\Application\SendEmailToModerator;
-use Zorachka\EventDispatcher\Tests\Domain\UserWasRegistered;
+use Zorachka\Framework\EventDispatcher\EventDispatcherConfig;
+use YourProject\Domain\UserWasRegistered;
+use YourProject\Application\SendEmailToModerator;
 
-$config = Config::withDefaults()
+$config = EventDispatcherConfig::withDefaults()
     ->addEventListener(UserWasRegistered::class, SendEmailToModerator::class)
-    ->build(); // and you will get an array of definitions for container
-
+    ->listeners();
 ```
 
 And even set priority (`ListenerPriority::NORMAL` by default):
 
 ```php
-use Zorachka\EventDispatcher\Config;
-use Zorachka\EventDispatcher\Infrastructure\ListenerPriority;
-use Zorachka\EventDispatcher\Tests\Application\SendEmailToModerator;
-use Zorachka\EventDispatcher\Tests\Domain\UserWasRegistered;
+use Zorachka\Framework\EventDispatcher\EventDispatcherConfig;
+use Zorachka\Framework\EventDispatcher\ListenerPriority;
+use YourProject\Application\SendEmailToModerator;
+use YourProject\Domain\UserWasRegistered;
 
-$config = Config::withDefaults()
+$config = EventDispatcherConfig::withDefaults()
     ->addEventListener(UserWasRegistered::class, SendEmailToModerator::class, ListenerPriority::HIGH)
-    ->build(); // and you will get an array of definitions for container
-
+    ->listeners();
 ```
 
 ## Testing
