@@ -19,7 +19,7 @@
         "php": "^8.0",
         "psr/event-dispatcher": "^1.0",
         "webmozart/assert": "^1.10",
-        "zorachka/container": "^1.0"
+        "zorachka/container": "^2.0"
     },
     "require-dev": {
         "dg/bypass-finals": "^1.3",
