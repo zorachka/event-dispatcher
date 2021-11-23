@@ -88,14 +88,14 @@ use YourProject\Application\SendEmailToModerator;
 use YourProject\Domain\UserWasRegistered;
 use YourProject\Application\SendWelcomeEmail;
 
-$registry = new ImmutablePrioritizedListenerProvider(
+$registry = new ImmutablePrioritizedListenerProvider([
     new PrioritizedListenerProvider(PostWasCreated::class, [
         ListenerPriority::NORMAL => new SendEmailToModerator(),
     ]),
     new PrioritizedListenerProvider(UserWasRegistered::class, [
         ListenerPriority::NORMAL => new SendWelcomeEmail(), 
     ]),
-);
+]);
 $dispatcher = new SyncEventDispatcher($registry);
 
 // And in your application use case:
