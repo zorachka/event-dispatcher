@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Zorachka\Framework\EventDispatcher;
+namespace Zorachka\EventDispatcher;
 
 use Psr\EventDispatcher\ListenerProviderInterface;
 use Webmozart\Assert\Assert;
-use Zorachka\Framework\EventDispatcher\Exceptions\CouldNotFindListener;
+use Zorachka\EventDispatcher\Exceptions\CouldNotFindListener;
 
 final class PrioritizedListenerProvider implements ListenerProviderInterface
 {
@@ -16,7 +16,6 @@ final class PrioritizedListenerProvider implements ListenerProviderInterface
     /**
      * PrioritizedListenerProvider constructor.
      * @param class-string $eventClassName
-     * @param array $listeners
      */
     public function __construct(string $eventClassName, array $listeners)
     {
@@ -29,16 +28,12 @@ final class PrioritizedListenerProvider implements ListenerProviderInterface
         $this->eventClassName = $eventClassName;
     }
 
-    /**
-     * @return string
-     */
     public function eventClassName(): string
     {
         return $this->eventClassName;
     }
 
     /**
-     * @inheritDoc
      * @throws CouldNotFindListener
      */
     public function getListenersForEvent(object $event): iterable

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Zorachka\Framework\EventDispatcher;
+namespace Zorachka\EventDispatcher;
 
 use Psr\EventDispatcher\ListenerProviderInterface;
 use Webmozart\Assert\Assert;
-use Zorachka\Framework\EventDispatcher\Exceptions\CouldNotFindListener;
+use Zorachka\EventDispatcher\Exceptions\CouldNotFindListener;
 
 final class ImmutablePrioritizedListenerProvider implements ListenerProviderInterface
 {
@@ -25,7 +25,6 @@ final class ImmutablePrioritizedListenerProvider implements ListenerProviderInte
     }
 
     /**
-     * @inheritDoc
      * @throws CouldNotFindListener
      */
     public function getListenersForEvent(object $event): iterable

@@ -2,14 +2,28 @@
 
 declare(strict_types=1);
 
-use Zorachka\Framework\EventDispatcher\ListenerPriority;
+namespace Zorachka\EventDispatcher\Tests\Unit\EventDispatcher;
 
-test('ListenerPriority ', function () {
-    expect(ListenerPriority::LOW)->toBeInt();
+use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\TestCase;
+use Zorachka\EventDispatcher\ListenerPriority;
 
-    expect(ListenerPriority::NORMAL)->toBeInt();
-    expect(ListenerPriority::NORMAL > ListenerPriority::LOW)->toBeTrue();
+/**
+ * @internal
+ */
+final class ListenerPriorityTest extends TestCase
+{
+    /**
+     * @test
+     */
+    public function shouldBeCorrect(): void
+    {
+        Assert::assertIsInt(ListenerPriority::LOW);
 
-    expect(ListenerPriority::HIGH)->toBeInt();
-    expect(ListenerPriority::HIGH > ListenerPriority::NORMAL)->toBeTrue();
-});
+        Assert::assertIsInt(ListenerPriority::NORMAL);
+        Assert::assertTrue(ListenerPriority::NORMAL > ListenerPriority::LOW);
+
+        Assert::assertIsInt(ListenerPriority::HIGH);
+        Assert::assertTrue(ListenerPriority::HIGH > ListenerPriority::NORMAL);
+    }
+}

@@ -2,90 +2,114 @@
 
 declare(strict_types=1);
 
+namespace Zorachka\EventDispatcher\Tests\Unit\EventDispatcher;
 
-use Zorachka\Framework\EventDispatcher\Exceptions\CouldNotFindListener;
-use Zorachka\Framework\EventDispatcher\ImmutablePrioritizedListenerProvider;
-use Zorachka\Framework\EventDispatcher\ListenerPriority;
-use Zorachka\Framework\EventDispatcher\PrioritizedListenerProvider;
-use Zorachka\Framework\Tests\Datasets\EventDispatcher\Application\SendEmailToModerator;
-use Zorachka\Framework\Tests\Datasets\EventDispatcher\Application\SendWelcomeEmail;
-use Zorachka\Framework\Tests\Datasets\EventDispatcher\Domain\EmailAddress;
-use Zorachka\Framework\Tests\Datasets\EventDispatcher\Domain\EventWithoutListener;
-use Zorachka\Framework\Tests\Datasets\EventDispatcher\Domain\PostId;
-use Zorachka\Framework\Tests\Datasets\EventDispatcher\Domain\PostWasCreated;
-use Zorachka\Framework\Tests\Datasets\EventDispatcher\Domain\UserWasRegistered;
+use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\TestCase;
+use Psr\EventDispatcher\ListenerProviderInterface;
+use Zorachka\EventDispatcher\Exceptions\CouldNotFindListener;
+use Zorachka\EventDispatcher\ImmutablePrioritizedListenerProvider;
+use Zorachka\EventDispatcher\ListenerPriority;
+use Zorachka\EventDispatcher\PrioritizedListenerProvider;
+use Zorachka\EventDispatcher\Tests\Datasets\EventDispatcher\Application\SendEmailToModerator;
+use Zorachka\EventDispatcher\Tests\Datasets\EventDispatcher\Application\SendWelcomeEmail;
+use Zorachka\EventDispatcher\Tests\Datasets\EventDispatcher\Domain\EmailAddress;
+use Zorachka\EventDispatcher\Tests\Datasets\EventDispatcher\Domain\EventWithoutListener;
+use Zorachka\EventDispatcher\Tests\Datasets\EventDispatcher\Domain\PostId;
+use Zorachka\EventDispatcher\Tests\Datasets\EventDispatcher\Domain\PostWasCreated;
+use Zorachka\EventDispatcher\Tests\Datasets\EventDispatcher\Domain\UserWasRegistered;
 
-beforeEach(function () {
-    $providers = [];
-    $listenersDataset = [
-        PostWasCreated::class => [
-            PostWasCreated::withId(
-                PostId::fromString('00000000-0000-0000-0000-000000000000'),
-            ),
-            [
-                new SendEmailToModerator(ListenerPriority::HIGH),
-                new SendEmailToModerator(ListenerPriority::NORMAL),
-                new SendEmailToModerator(ListenerPriority::LOW),
-            ]
-        ],
-        UserWasRegistered::class => [
-            UserWasRegistered::withEmailAddress(
-                EmailAddress::fromString('email@tld.com'),
-            ),
-            [
-                new SendWelcomeEmail(ListenerPriority::HIGH),
-                new SendWelcomeEmail(ListenerPriority::NORMAL),
-                new SendWelcomeEmail(ListenerPriority::LOW),
-            ]
-        ],
-    ];
+/**
+ * @internal
+ */
+final class ImmutablePrioritizedListenerProviderTest extends TestCase
+{
+    private ListenerProviderInterface $registry;
 
-    foreach ($listenersDataset as $eventClassName => [$event, $listeners]) {
-        $provider = $this->createMock(PrioritizedListenerProvider::class);
-        $provider
-            ->method('eventClassName')
-            ->willReturn($eventClassName);
-        $provider
-            ->method('getListenersForEvent')
-            ->with($event)
-            ->willReturn($listeners);
+    protected function setUp(): void
+    {
+        $providers = [];
+        $listenersDataset = [
+            PostWasCreated::class => [
+                PostWasCreated::withId(
+                    PostId::fromString('00000000-0000-0000-0000-000000000000'),
+                ),
+                [
+                    new SendEmailToModerator(ListenerPriority::HIGH),
+                    new SendEmailToModerator(ListenerPriority::NORMAL),
+                    new SendEmailToModerator(ListenerPriority::LOW),
+                ],
+            ],
+            UserWasRegistered::class => [
+                UserWasRegistered::withEmailAddress(
+                    EmailAddress::fromString('email@tld.com'),
+                ),
+                [
+                    new SendWelcomeEmail(ListenerPriority::HIGH),
+                    new SendWelcomeEmail(ListenerPriority::NORMAL),
+                    new SendWelcomeEmail(ListenerPriority::LOW),
+                ],
+            ],
+        ];
 
-        $providers[] = $provider;
+        foreach ($listenersDataset as $eventClassName => [$event, $listeners]) {
+            $provider = $this->createMock(PrioritizedListenerProvider::class);
+            $provider
+                ->method('eventClassName')
+                ->willReturn($eventClassName);
+            $provider
+                ->method('getListenersForEvent')
+                ->with($event)
+                ->willReturn($listeners);
+
+            $providers[] = $provider;
+        }
+
+        $this->registry = new ImmutablePrioritizedListenerProvider($providers);
     }
 
-    $this->registry = new ImmutablePrioritizedListenerProvider($providers);
-});
+    public function dataListenersForEvent(): array
+    {
+        return [
+            PostWasCreated::class => [
+                PostWasCreated::withId(
+                    PostId::fromString('00000000-0000-0000-0000-000000000000'),
+                ),
+                [
+                    new SendEmailToModerator(ListenerPriority::HIGH),
+                    new SendEmailToModerator(ListenerPriority::NORMAL),
+                    new SendEmailToModerator(ListenerPriority::LOW),
+                ],
+            ],
+            UserWasRegistered::class => [
+                UserWasRegistered::withEmailAddress(
+                    EmailAddress::fromString('email@tld.com'),
+                ),
+                [
+                    new SendWelcomeEmail(ListenerPriority::HIGH),
+                    new SendWelcomeEmail(ListenerPriority::NORMAL),
+                    new SendWelcomeEmail(ListenerPriority::LOW),
+                ],
+            ],
+        ];
+    }
 
-test('ImmutablePrioritizedListenerProvider throws exception if could not find listener', function () {
-    $event = new EventWithoutListener();
-    $this->registry->getListenersForEvent($event);
-})->throws(CouldNotFindListener::class);
+    /**
+     * @test
+     */
+    public function shouldThrowsExceptionIfCouldNotFindListener(): void
+    {
+        $this->expectException(CouldNotFindListener::class);
+        $event = new EventWithoutListener();
+        $this->registry->getListenersForEvent($event);
+    }
 
-test('ImmutablePrioritizedListenerProvider should get listeners for event with priority', function (
-    object $event,
-    array $expectedListeners,
-) {
-    expect($this->registry->getListenersForEvent($event))
-        ->toMatchArray($expectedListeners);
-})->with([
-    PostWasCreated::class => [
-        PostWasCreated::withId(
-            PostId::fromString('00000000-0000-0000-0000-000000000000'),
-        ),
-        [
-            new SendEmailToModerator(ListenerPriority::HIGH),
-            new SendEmailToModerator(ListenerPriority::NORMAL),
-            new SendEmailToModerator(ListenerPriority::LOW),
-        ]
-    ],
-    UserWasRegistered::class => [
-        UserWasRegistered::withEmailAddress(
-            EmailAddress::fromString('email@tld.com'),
-        ),
-        [
-            new SendWelcomeEmail(ListenerPriority::HIGH),
-            new SendWelcomeEmail(ListenerPriority::NORMAL),
-            new SendWelcomeEmail(ListenerPriority::LOW),
-        ]
-    ],
-]);
+    /**
+     * @test
+     * @dataProvider dataListenersForEvent
+     */
+    public function shouldGetListenersForEventWithPriority(object $event, array $expectedListeners): void
+    {
+        Assert::assertEquals($expectedListeners, $this->registry->getListenersForEvent($event));
+    }
+}

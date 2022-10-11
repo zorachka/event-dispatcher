@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Zorachka\Framework\Tests\Datasets\EventDispatcher\Application;
+namespace Zorachka\EventDispatcher\Tests\Datasets\EventDispatcher\Application;
 
-use Zorachka\Framework\Tests\Datasets\EventDispatcher\Domain\UserWasRegistered;
+use Zorachka\EventDispatcher\Tests\Datasets\EventDispatcher\Domain\UserWasRegistered;
 
 final class SendWelcomeEmail
 {
@@ -23,17 +23,11 @@ final class SendWelcomeEmail
         return $event;
     }
 
-    /**
-     * @return int
-     */
     public function priority(): int
     {
         return $this->priority;
     }
 
-    /**
-     * @return bool
-     */
     public function isWasCalled(): bool
     {
         return $this->wasCalled;

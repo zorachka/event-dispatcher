@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Zorachka\Framework\Tests\Hook;
+namespace Zorachka\EventDispatcher\Tests\Hook;
 
 use DG\BypassFinals;
 use PHPUnit\Runner\BeforeTestHook;

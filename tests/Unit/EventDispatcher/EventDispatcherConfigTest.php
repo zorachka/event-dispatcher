@@ -2,44 +2,66 @@
 
 declare(strict_types=1);
 
-use Zorachka\Framework\EventDispatcher\EventDispatcherConfig;
-use Zorachka\Framework\EventDispatcher\ListenerPriority;
-use Zorachka\Framework\Tests\Datasets\EventDispatcher\Application\SendEmailToModerator;
-use Zorachka\Framework\Tests\Datasets\EventDispatcher\Domain\PostWasCreated;
+namespace Zorachka\EventDispatcher\Tests\Unit\EventDispatcher;
 
-test('EventDispatcherConfig should be created with defaults', function () {
-    $defaultConfig = EventDispatcherConfig::withDefaults();
-    $listeners = $defaultConfig->listeners();
+use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\TestCase;
+use Zorachka\EventDispatcher\EventDispatcherConfig;
+use Zorachka\EventDispatcher\ListenerPriority;
+use Zorachka\EventDispatcher\Tests\Datasets\EventDispatcher\Application\SendEmailToModerator;
+use Zorachka\EventDispatcher\Tests\Datasets\EventDispatcher\Domain\PostWasCreated;
 
-    expect($listeners)->toBeArray();
-    expect($listeners)->toBeEmpty();
-});
+/**
+ * @internal
+ */
+final class EventDispatcherConfigTest extends TestCase
+{
+    /**
+     * @test
+     */
+    public function shouldBeCreatedWithDefaults(): void
+    {
+        $defaultConfig = EventDispatcherConfig::withDefaults();
+        $listeners = $defaultConfig->listeners();
 
-test('EventDispatcherConfig should be able to add event listener', function () {
-    $defaultConfig = EventDispatcherConfig::withDefaults();
-    $newConfig = $defaultConfig->withEventListener(
-        PostWasCreated::class,
-        SendEmailToModerator::class,
-    );
+        Assert::assertIsArray($listeners);
+        Assert::assertEmpty($listeners);
+    }
 
-    expect($newConfig->listeners())->toMatchArray([
-        PostWasCreated::class => [
-            ListenerPriority::NORMAL => SendEmailToModerator::class,
-        ],
-    ]);
-});
+    /**
+     * @test
+     */
+    public function shouldBeAbleToAddEventListener(): void
+    {
+        $defaultConfig = EventDispatcherConfig::withDefaults();
+        $newConfig = $defaultConfig->withEventListener(
+            PostWasCreated::class,
+            SendEmailToModerator::class,
+        );
 
-test('EventDispatcherConfig should be able to add event listener with priority', function () {
-    $defaultConfig = EventDispatcherConfig::withDefaults();
-    $newConfig = $defaultConfig->withEventListener(
-        PostWasCreated::class,
-        SendEmailToModerator::class,
-        ListenerPriority::LOW,
-    );
+        Assert::assertEquals([
+            PostWasCreated::class => [
+                ListenerPriority::NORMAL => SendEmailToModerator::class,
+            ],
+        ], $newConfig->listeners());
+    }
 
-    expect($newConfig->listeners())->toMatchArray([
-        PostWasCreated::class => [
-            ListenerPriority::LOW => SendEmailToModerator::class,
-        ],
-    ]);
-});
+    /**
+     * @test
+     */
+    public function shouldBeAbleToAddEventListenerWithPriority(): void
+    {
+        $defaultConfig = EventDispatcherConfig::withDefaults();
+        $newConfig = $defaultConfig->withEventListener(
+            PostWasCreated::class,
+            SendEmailToModerator::class,
+            ListenerPriority::LOW,
+        );
+
+        Assert::assertEquals([
+            PostWasCreated::class => [
+                ListenerPriority::LOW => SendEmailToModerator::class,
+            ],
+        ], $newConfig->listeners());
+    }
+}
