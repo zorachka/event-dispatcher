@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Zorachka\EventDispatcher\Tests\Unit\EventDispatcher;
 
-use phpDocumentor\Reflection\Types\ClassString;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
 use Psr\EventDispatcher\ListenerProviderInterface;
