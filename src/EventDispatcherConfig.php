@@ -7,6 +7,9 @@ namespace Zorachka\EventDispatcher;
 final class EventDispatcherConfig
 {
     private function __construct(
+        /**
+         * @var array<class-string, array<int, class-string>> $listeners
+         */
         private array $listeners
     ) {
     }
@@ -38,18 +41,13 @@ final class EventDispatcherConfig
         int $priority = ListenerPriority::NORMAL
     ): self {
         $new = clone $this;
-
-        if ($priority === ListenerPriority::NORMAL) {
-            $new->listeners[$eventClassName][] = $listenerClassName;
-        } else {
-            $new->listeners[$eventClassName][$priority] = $listenerClassName;
-        }
+        $new->listeners[$eventClassName][$priority] = $listenerClassName;
 
         return $new;
     }
 
     /**
-     * @return array<class-string, array<int, class-string>>
+     * @return array<class-string, array<int, class-string>> $listeners
      */
     public function listeners(): array
     {

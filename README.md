@@ -8,7 +8,7 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/zorachka/event-dispatcher.svg?style=flat-square)](https://packagist.org/packages/zorachka/event-dispatcher)
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/zorachka/event-dispatcher/tests?label=tests)](https://github.com/zorachka/event-dispatcher/actions/workflows/test.yml)
-[![Analysis](https://github.com/zorachka/event-dispatcher/actions/workflows/analyze.yml/badge.svg?branch=main)](https://github.com/zorachka/container/actions/workflows/analyze.yml)
+[![Analysis](https://github.com/zorachka/event-dispatcher/actions/workflows/analyse.yml/badge.svg?branch=main)](https://github.com/zorachka/container/actions/workflows/analyse.yml)
 [![Total Downloads](https://img.shields.io/packagist/dt/zorachka/event-dispatcher.svg?style=flat-square)](https://packagist.org/packages/zorachka/event-dispatcher)
 
 ---

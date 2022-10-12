@@ -1,6 +1,6 @@
 start: docker-down-clear docker-pull docker-build-pull docker-up composer-install
 stop: docker-down-clear
-check: lint analyze test
+check: lint analyse test
 
 docker-up:
 	docker compose up -d
@@ -26,8 +26,8 @@ lint:
 cs-fix:
 	docker compose run --rm php-cli composer php-cs-fixer fix
 
-analyze:
-	docker compose run --rm php-cli composer psalm
+analyse:
+	docker compose run --rm php-cli composer phpstan
 
 test:
 	docker compose run --rm php-cli composer test

@@ -1,0 +1,11 @@
+parameters:
+    tmpDir: %currentWorkingDirectory%/var/phpstan
+    editorUrl: 'phpstorm://open?file=%%file%%&line=%%line%%'
+    level: max
+    paths:
+        - src/
+        - tests/
+    checkMissingIterableValueType: false
+includes:
+    - vendor/phpstan/phpstan-webmozart-assert/extension.neon
+    - vendor/phpstan/phpstan-phpunit/extension.neon

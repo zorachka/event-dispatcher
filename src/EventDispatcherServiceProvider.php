@@ -35,6 +35,7 @@ final class EventDispatcherServiceProvider implements ServiceProvider
                 return new ImmutablePrioritizedListenerProvider($providers);
             },
             EventDispatcherInterface::class => static function (ContainerInterface $container) {
+                /** @var ListenerProviderInterface $listenerProvider */
                 $listenerProvider = $container->get(ListenerProviderInterface::class);
 
                 return new SyncEventDispatcher($listenerProvider);
