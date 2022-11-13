@@ -11,6 +11,7 @@ final class Post
     use EventRecordingCapabilities;
 
     private function __construct(
+        /** @phpstan-ignore-next-line */
         private PostId $id
     ) {
     }

@@ -53,6 +53,7 @@ final class ImmutablePrioritizedListenerProviderTest extends TestCase
         ];
 
         foreach ($listenersDataset as $eventClassName => [$event, $listeners]) {
+            /** @phpstan-ignore-next-line */
             $provider = $this->createMock(PrioritizedListenerProvider::class);
             $provider
                 ->method('eventClassName')

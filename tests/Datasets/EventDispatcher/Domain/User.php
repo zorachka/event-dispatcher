@@ -11,7 +11,9 @@ final class User
     use EventRecordingCapabilities;
 
     private function __construct(
+        /** @phpstan-ignore-next-line */
         private UserId $id,
+        /** @phpstan-ignore-next-line */
         private EmailAddress $emailAddress,
     ) {
     }
