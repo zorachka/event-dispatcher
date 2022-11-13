@@ -2,18 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Zorachka\Framework\EventDispatcher;
+namespace Zorachka\EventDispatcher;
 
 use Psr\Container\ContainerInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\EventDispatcher\ListenerProviderInterface;
-use Zorachka\Framework\Container\ServiceProvider;
+use Zorachka\Container\ServiceProvider;
 
 final class EventDispatcherServiceProvider implements ServiceProvider
 {
-    /**
-     * @inheritDoc
-     */
     public static function getDefinitions(): array
     {
         return [
@@ -29,23 +26,24 @@ final class EventDispatcherServiceProvider implements ServiceProvider
                     foreach ($rawEventListeners as $eventListener) {
                         $eventListeners[] = $container->get($eventListener);
                     }
-                    $providers[] = new PrioritizedListenerProvider($eventClassName, $eventListeners);
+                    $providers[] = new PrioritizedListenerProvider(
+                        eventClassName: $eventClassName,
+                        listeners: $eventListeners
+                    );
                 }
 
                 return new ImmutablePrioritizedListenerProvider($providers);
             },
             EventDispatcherInterface::class => static function (ContainerInterface $container) {
+                /** @var ListenerProviderInterface $listenerProvider */
                 $listenerProvider = $container->get(ListenerProviderInterface::class);
 
                 return new SyncEventDispatcher($listenerProvider);
             },
-            EventDispatcherConfig::class => fn() => EventDispatcherConfig::withDefaults(),
+            EventDispatcherConfig::class => static fn () => EventDispatcherConfig::withDefaults(),
         ];
     }
 
-    /**
-     * @inheritDoc
-     */
     public static function getExtensions(): array
     {
         return [];

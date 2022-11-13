@@ -2,17 +2,29 @@
 
 declare(strict_types=1);
 
+namespace Zorachka\EventDispatcher\Tests\Unit\EventDispatcher;
+
+use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\TestCase;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\EventDispatcher\ListenerProviderInterface;
-use Zorachka\Framework\EventDispatcher\EventDispatcherConfig;
-use Zorachka\Framework\EventDispatcher\EventDispatcherServiceProvider;
+use Zorachka\EventDispatcher\EventDispatcherConfig;
+use Zorachka\EventDispatcher\EventDispatcherServiceProvider;
 
-test('EventDispatcherServiceProvider should contain definitions', function () {
-    expect(
-        array_keys(EventDispatcherServiceProvider::getDefinitions())
-    )->toMatchArray([
-        ListenerProviderInterface::class,
-        EventDispatcherInterface::class,
-        EventDispatcherConfig::class,
-    ]);
-});
+/**
+ * @internal
+ */
+final class EventDispatcherServiceProviderTest extends TestCase
+{
+    /**
+     * @test
+     */
+    public function shouldContainDefinitions(): void
+    {
+        Assert::assertEquals([
+            ListenerProviderInterface::class,
+            EventDispatcherInterface::class,
+            EventDispatcherConfig::class,
+        ], array_keys(EventDispatcherServiceProvider::getDefinitions()));
+    }
+}

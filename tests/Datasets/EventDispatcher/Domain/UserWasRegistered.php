@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Zorachka\Framework\Tests\Datasets\EventDispatcher\Domain;
+namespace Zorachka\EventDispatcher\Tests\Datasets\EventDispatcher\Domain;
 
 final class UserWasRegistered
 {
@@ -16,9 +16,6 @@ final class UserWasRegistered
         return new self($emailAddress);
     }
 
-    /**
-     * @return EmailAddress
-     */
     public function emailAddress(): EmailAddress
     {
         return $this->emailAddress;

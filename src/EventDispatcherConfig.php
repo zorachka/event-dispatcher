@@ -2,14 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Zorachka\Framework\EventDispatcher;
+namespace Zorachka\EventDispatcher;
 
 final class EventDispatcherConfig
 {
     private function __construct(
+        /**
+         * @var array<class-string, array<int, class-string>> $listeners
+         */
         private array $listeners
-    ) {}
+    ) {
+    }
 
+    /**
+     * @param array<class-string, array<int, class-string>> $listeners
+     * @return static
+     */
     public static function withDefaults(array $listeners = []): self
     {
 //        [
@@ -25,7 +33,6 @@ final class EventDispatcherConfig
     /**
      * @param class-string $eventClassName
      * @param class-string $listenerClassName
-     * @param int $priority
      * @return $this
      */
     public function withEventListener(
@@ -34,18 +41,13 @@ final class EventDispatcherConfig
         int $priority = ListenerPriority::NORMAL
     ): self {
         $new = clone $this;
-
-        if ($priority === ListenerPriority::NORMAL) {
-            $new->listeners[$eventClassName][] = $listenerClassName;
-        } else {
-            $new->listeners[$eventClassName][$priority] = $listenerClassName;
-        }
+        $new->listeners[$eventClassName][$priority] = $listenerClassName;
 
         return $new;
     }
 
     /**
-     * @return array
+     * @return array<class-string, array<int, class-string>> $listeners
      */
     public function listeners(): array
     {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Zorachka\Framework\EventDispatcher;
+namespace Zorachka\EventDispatcher;
 
 trait EventRecordingCapabilities
 {
@@ -14,8 +14,6 @@ trait EventRecordingCapabilities
 
     /**
      * Register that event was created.
-     * @param object $event
-     * @return void
      */
     private function registerThat(object $event): void
     {

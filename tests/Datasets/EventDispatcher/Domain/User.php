@@ -2,16 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Zorachka\Framework\Tests\Datasets\EventDispatcher\Domain;
+namespace Zorachka\EventDispatcher\Tests\Datasets\EventDispatcher\Domain;
 
-use Zorachka\Framework\EventDispatcher\EventRecordingCapabilities;
+use Zorachka\EventDispatcher\EventRecordingCapabilities;
 
 final class User
 {
     use EventRecordingCapabilities;
 
     private function __construct(
+        /** @phpstan-ignore-next-line */
         private UserId $id,
+        /** @phpstan-ignore-next-line */
         private EmailAddress $emailAddress,
     ) {
     }

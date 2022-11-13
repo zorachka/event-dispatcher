@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Zorachka\Framework\EventDispatcher\Exceptions;
+namespace Zorachka\EventDispatcher\Exceptions;
 
 use RuntimeException;
 

@@ -2,39 +2,65 @@
 
 declare(strict_types=1);
 
-use Zorachka\Framework\EventDispatcher\Exceptions\CouldNotFindListener;
-use Zorachka\Framework\EventDispatcher\ListenerPriority;
-use Zorachka\Framework\EventDispatcher\PrioritizedListenerProvider;
-use Zorachka\Framework\Tests\Datasets\EventDispatcher\Application\SendEmailToModerator;
-use Zorachka\Framework\Tests\Datasets\EventDispatcher\Domain\EventWithoutListener;
-use Zorachka\Framework\Tests\Datasets\EventDispatcher\Domain\PostId;
-use Zorachka\Framework\Tests\Datasets\EventDispatcher\Domain\PostWasCreated;
+namespace Zorachka\EventDispatcher\Tests\Unit\EventDispatcher;
 
-beforeEach(function () {
-    $this->provider = new PrioritizedListenerProvider(PostWasCreated::class, [
-        ListenerPriority::NORMAL => new SendEmailToModerator(ListenerPriority::NORMAL),
-        ListenerPriority::HIGH => new SendEmailToModerator(ListenerPriority::HIGH),
-        ListenerPriority::LOW => new SendEmailToModerator(ListenerPriority::LOW),
-    ]);
-});
+use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\TestCase;
+use Zorachka\EventDispatcher\Exceptions\CouldNotFindListener;
+use Zorachka\EventDispatcher\ListenerPriority;
+use Zorachka\EventDispatcher\PrioritizedListenerProvider;
+use Zorachka\EventDispatcher\Tests\Datasets\EventDispatcher\Application\SendEmailToModerator;
+use Zorachka\EventDispatcher\Tests\Datasets\EventDispatcher\Domain\EventWithoutListener;
+use Zorachka\EventDispatcher\Tests\Datasets\EventDispatcher\Domain\PostId;
+use Zorachka\EventDispatcher\Tests\Datasets\EventDispatcher\Domain\PostWasCreated;
 
-test('ImmutablePrioritizedListenerProvider throws exception if could not find listener', function () {
-    $event = new EventWithoutListener();
-    $this->provider->getListenersForEvent($event);
-})->throws(CouldNotFindListener::class);
+/**
+ * @internal
+ */
+final class PrioritizedListenerProviderTest extends TestCase
+{
+    private PrioritizedListenerProvider $provider;
 
-test('PrioritizedListenerProvider should have event class name', function () {
-    expect($this->provider->eventClassName())->toBe(PostWasCreated::class);
-});
+    protected function setUp(): void
+    {
+        $this->provider = new PrioritizedListenerProvider(PostWasCreated::class, [
+            ListenerPriority::NORMAL => new SendEmailToModerator(ListenerPriority::NORMAL),
+            ListenerPriority::HIGH => new SendEmailToModerator(ListenerPriority::HIGH),
+            ListenerPriority::LOW => new SendEmailToModerator(ListenerPriority::LOW),
+        ]);
+    }
 
-test('PrioritizedListenerProvider should get listeners for event with priority', function () {
-    $event = PostWasCreated::withId(
-        PostId::fromString('00000000-0000-0000-0000-000000000000')
-    );
+    /**
+     * @test
+     */
+    public function shouldThrowsExceptionIfCouldNotFindListener(): void
+    {
+        $this->expectException(CouldNotFindListener::class);
+        $event = new EventWithoutListener();
+        $this->provider->getListenersForEvent($event);
+    }
 
-    expect($this->provider->getListenersForEvent($event))->toMatchArray([
-        new SendEmailToModerator(ListenerPriority::HIGH),
-        new SendEmailToModerator(ListenerPriority::NORMAL),
-        new SendEmailToModerator(ListenerPriority::LOW),
-    ]);
-});
+    /**
+     * @test
+     */
+    public function shouldHaveEventClassName(): void
+    {
+        Assert::assertEquals(PostWasCreated::class, $this->provider->eventClassName());
+    }
+
+    /**
+     * @test
+     */
+    public function shouldGetListenersForEventWithPriority(): void
+    {
+        $event = PostWasCreated::withId(
+            PostId::fromString('00000000-0000-0000-0000-000000000000')
+        );
+
+        Assert::assertEquals([
+            new SendEmailToModerator(ListenerPriority::HIGH),
+            new SendEmailToModerator(ListenerPriority::NORMAL),
+            new SendEmailToModerator(ListenerPriority::LOW),
+        ], $this->provider->getListenersForEvent($event));
+    }
+}

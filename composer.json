@@ -18,28 +18,37 @@
     "require": {
         "php": "^8.0",
         "psr/event-dispatcher": "^1.0",
-        "webmozart/assert": "^1.10",
-        "zorachka/container": "^2.0"
+        "webmozart/assert": "^1.11",
+        "zorachka/container": "^3.0"
     },
     "require-dev": {
         "dg/bypass-finals": "^1.3",
-        "pestphp/pest": "^1.21",
-        "pestphp/pest-plugin-mock": "^1.0",
+        "friendsofphp/php-cs-fixer": "^3.11",
+        "phpstan/phpstan": "^1.8",
+        "phpstan/phpstan-phpunit": "^1.1",
+        "phpstan/phpstan-webmozart-assert": "^1.2",
+        "phpunit/phpunit": "^9.5",
+        "psalm/plugin-phpunit": "^0.17.0",
         "roave/security-advisories": "dev-latest"
     },
     "autoload": {
         "psr-4": {
-            "Zorachka\\Framework\\": "src/"
+            "Zorachka\\EventDispatcher\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Zorachka\\Framework\\Tests\\": "tests"
+            "Zorachka\\EventDispatcher\\Tests\\": "tests"
         }
     },
     "config": {
         "sort-packages": true
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "scripts": {
+        "php-cs-fixer": "php-cs-fixer --config=.php-cs-fixer.php --allow-risky=yes",
+        "phpstan": "phpstan analyse -c phpstan.neon",
+        "test": "phpunit --colors=always"
+    }
 }

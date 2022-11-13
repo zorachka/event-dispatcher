@@ -7,12 +7,13 @@
 </p>
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/zorachka/event-dispatcher.svg?style=flat-square)](https://packagist.org/packages/zorachka/event-dispatcher)
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/zorachka/event-dispatcher/run-tests?label=tests)](https://github.com/zorachka/event-dispatcher/actions/workflows/run-tests.yml)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/zorachka/event-dispatcher/tests?label=tests)](https://github.com/zorachka/event-dispatcher/actions/workflows/test.yml)
+[![Analysis](https://github.com/zorachka/event-dispatcher/actions/workflows/analyse.yml/badge.svg?branch=main)](https://github.com/zorachka/container/actions/workflows/analyse.yml)
 [![Total Downloads](https://img.shields.io/packagist/dt/zorachka/event-dispatcher.svg?style=flat-square)](https://packagist.org/packages/zorachka/event-dispatcher)
 
 ---
 
-This is PSR-14 Event Dispatcher pretty simple implementation and framework agnostic solution.
+This is PSR-14 Event Dispatcher pretty simple implementation and framework-agnostic solution.
 
 ## Why another one?
 
@@ -45,7 +46,7 @@ declare(strict_types=1);
 
 namespace YourProject\Domain;
 
-use Zorachka\Framework\EventDispatcher\EventRecordingCapabilities;
+use Zorachka\EventDispatcher\EventRecordingCapabilities;
 
 final class Post
 {
@@ -75,10 +76,10 @@ declare(strict_types=1);
 
 require __DIR__ . 'vendor/autoload.php';
 
-use Zorachka\Framework\EventDispatcher\ImmutablePrioritizedListenerProvider;
-use Zorachka\Framework\EventDispatcher\ListenerPriority;
-use Zorachka\Framework\EventDispatcher\PrioritizedListenerProvider;
-use Zorachka\Framework\EventDispatcher\SyncEventDispatcher;
+use Zorachka\EventDispatcher\ImmutablePrioritizedListenerProvider;
+use Zorachka\EventDispatcher\ListenerPriority;
+use Zorachka\EventDispatcher\PrioritizedListenerProvider;
+use Zorachka\EventDispatcher\SyncEventDispatcher;
 
 use YourProject\Domain\Post;
 use YourProject\Domain\PostId;
@@ -111,13 +112,13 @@ foreach ($post->releaseEvents() as $event) {
 ```
 
 Of course that is better to use DI and you can take 
-definitions from `Zorachka\Framework\EventDispatcher\EventDispatcherServiceProvider` class. 
+definitions from `Zorachka\EventDispatcher\EventDispatcherServiceProvider` class. 
 After that in your application you can easily inject `Psr\EventDispatcher\EventDispatcherInterface`.
 
 Also, you can configure listeners for events pass them into config:
 
 ```php
-use Zorachka\Framework\EventDispatcher\EventDispatcherConfig;
+use Zorachka\EventDispatcher\EventDispatcherConfig;
 use YourProject\Domain\UserWasRegistered;
 use YourProject\Application\SendEmailToModerator;
 
@@ -129,8 +130,8 @@ $config = EventDispatcherConfig::withDefaults()
 And even set priority (`ListenerPriority::NORMAL` by default):
 
 ```php
-use Zorachka\Framework\EventDispatcher\EventDispatcherConfig;
-use Zorachka\Framework\EventDispatcher\ListenerPriority;
+use Zorachka\EventDispatcher\EventDispatcherConfig;
+use Zorachka\EventDispatcher\ListenerPriority;
 use YourProject\Application\SendEmailToModerator;
 use YourProject\Domain\UserWasRegistered;
 

@@ -2,11 +2,26 @@
 
 declare(strict_types=1);
 
-use Zorachka\Framework\EventDispatcher\NullableEventListener;
+namespace Zorachka\EventDispatcher\Tests\Unit\EventDispatcher;
 
-test('NullableEventListener should have __invoke method and return object', function () {
-    $listener = new NullableEventListener();
-    $event = new stdClass();
+use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\TestCase;
+use stdClass;
+use Zorachka\EventDispatcher\NullableEventListener;
 
-    expect($listener->__invoke($event))->toBe($event);
-});
+/**
+ * @internal
+ */
+final class NullableEventListenerTest extends TestCase
+{
+    /**
+     * @test
+     */
+    public function shouldBeCallableAndReturnObject(): void
+    {
+        $listener = new NullableEventListener();
+        $event = new stdClass();
+
+        Assert::assertEquals($event, $listener($event));
+    }
+}

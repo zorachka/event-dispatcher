@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Zorachka\Framework\Tests\Datasets\EventDispatcher\Domain;
+namespace Zorachka\EventDispatcher\Tests\Datasets\EventDispatcher\Domain;
 
 final class PostWasCreated
 {
@@ -16,9 +16,6 @@ final class PostWasCreated
         return new self($id);
     }
 
-    /**
-     * @return PostId
-     */
     public function id(): PostId
     {
         return $this->id;
