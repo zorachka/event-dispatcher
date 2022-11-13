@@ -6,7 +6,6 @@ namespace Zorachka\EventDispatcher\Tests\Unit\EventDispatcher;
 
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
-use Psr\EventDispatcher\ListenerProviderInterface;
 use Zorachka\EventDispatcher\Exceptions\CouldNotFindListener;
 use Zorachka\EventDispatcher\ListenerPriority;
 use Zorachka\EventDispatcher\PrioritizedListenerProvider;
