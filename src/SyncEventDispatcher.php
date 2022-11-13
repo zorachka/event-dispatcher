@@ -21,6 +21,7 @@ final class SyncEventDispatcher implements EventDispatcherInterface
 
     /**
      * @throws CouldNotFindListener
+     * @throws ListenerShouldReturnEvent
      */
     public function dispatch(object $event): object
     {
@@ -28,12 +29,9 @@ final class SyncEventDispatcher implements EventDispatcherInterface
             $returnedEvent = $listener($event);
 
             if (! $returnedEvent instanceof $event) {
-                throw new ListenerShouldReturnEvent(
-                    \sprintf(
-                        'The "%s" listener did not return what was expected: must return an "%s" event',
-                        $listener::class,
-                        $event::class,
-                    )
+                throw ListenerShouldReturnEvent::for(
+                    listenerClassName: $listener::class,
+                    eventClassName: $event::class,
                 );
             }
 
