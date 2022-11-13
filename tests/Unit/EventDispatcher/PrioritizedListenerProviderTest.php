@@ -20,7 +20,7 @@ use Zorachka\EventDispatcher\Tests\Datasets\EventDispatcher\Domain\PostWasCreate
  */
 final class PrioritizedListenerProviderTest extends TestCase
 {
-    private ListenerProviderInterface $provider;
+    private PrioritizedListenerProvider $provider;
 
     protected function setUp(): void
     {
