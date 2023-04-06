@@ -20,13 +20,13 @@ final class EventDispatcherConfig
      */
     public static function withDefaults(array $listeners = []): self
     {
-//        [
-//            Event::class => [
-//                ListenerPriority::HIGH => $listenerOne,
-//                ListenerPriority::NORMAL => $listenerTwo,
-//                ListenerPriority::LOW => $listenerThree,
-//            ],
-//        ]
+        //        [
+        //            Event::class => [
+        //                ListenerPriority::HIGH => $listenerOne,
+        //                ListenerPriority::NORMAL => $listenerTwo,
+        //                ListenerPriority::LOW => $listenerThree,
+        //            ],
+        //        ]
         return new self($listeners);
     }
 
