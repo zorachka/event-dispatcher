@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace Zorachka\EventDispatcher;
 
-use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\EventDispatcher\ListenerProviderInterface;
 use Psr\EventDispatcher\StoppableEventInterface;
 use Zorachka\EventDispatcher\Exceptions\CouldNotFindListener;
 use Zorachka\EventDispatcher\Exceptions\ListenerShouldReturnEvent;
 
-final class SyncEventDispatcher implements EventDispatcherInterface
+final class SyncEventDispatcher implements EventDispatcher
 {
     private ListenerProviderInterface $listenerProvider;
 
@@ -43,5 +42,16 @@ final class SyncEventDispatcher implements EventDispatcherInterface
         }
 
         return $event;
+    }
+
+    public function dispatchAll(array $events): array
+    {
+        $dispatchedEvents = [];
+        foreach ($events as $event) {
+            $dispatchedEvent = $this->dispatch($event);
+            $dispatchedEvents[] = $dispatchedEvent;
+        }
+
+        return $dispatchedEvents;
     }
 }
