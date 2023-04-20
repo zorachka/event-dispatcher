@@ -8,6 +8,7 @@ use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\EventDispatcher\ListenerProviderInterface;
+use Zorachka\EventDispatcher\EventDispatcher;
 use Zorachka\EventDispatcher\EventDispatcherConfig;
 use Zorachka\EventDispatcher\EventDispatcherServiceProvider;
 
@@ -23,6 +24,7 @@ final class EventDispatcherServiceProviderTest extends TestCase
     {
         Assert::assertEquals([
             ListenerProviderInterface::class,
+            EventDispatcher::class,
             EventDispatcherInterface::class,
             EventDispatcherConfig::class,
         ], array_keys(EventDispatcherServiceProvider::getDefinitions()));
