@@ -1,8 +1,0 @@
-parameters:
-    tmpDir: %currentWorkingDirectory%/var/phpstan
-    editorUrl: 'phpstorm://open?file=%%file%%&line=%%line%%'
-    level: max
-    paths:
-        - src/
-        - tests/
-    checkMissingIterableValueType: false
